@@ -8,15 +8,27 @@
 import SwiftUI
 import Firebase
 
+class FirebaseManager: NSObject {
+    
+    let auth: Auth
+    
+    static let shared = FirebaseManager()
+    
+    override init() {
+        FirebaseApp.configure()
+        
+        self.auth = Auth.auth()
+        
+        super.init()
+    }
+    
+}
+
 struct LandingView: View {
     
     @State var isLoginMode = false
     @State var email = ""
     @State var password = ""
-    
-    init() {
-        FirebaseApp.configure()
-    }
     
     var body: some View {
         NavigationView {
@@ -62,6 +74,8 @@ struct LandingView: View {
                             Spacer()
                         }.background(Color.blue)
                     }
+                    Text(self.loginStatusMessage)
+                        .foregroundColor(.red)
                 }
                 .padding()
             }
@@ -69,14 +83,46 @@ struct LandingView: View {
                 .ignoresSafeArea())
             .navigationTitle("Swift Chat")
         }
-//        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func handleAction() {
         if isLoginMode {
             print("Login to firebase with existing creds")
+            loginUser()
         } else {
             print("Register new account with firebase auth")
+            createNewAccount()
+        }
+    }
+    
+    @State var loginStatusMessage = ""
+    
+    private func createNewAccount() {
+        FirebaseManager.shared.auth.createUser(withEmail: email, password: password) {
+            result, error in
+            if let err = error {
+                print("Failed to create new user: ", err)
+                self.loginStatusMessage = "Failed to create a new user: \(err)"
+                return
+            }
+            
+            print("Successfully created user: \(result?.user.uid ?? "")")
+            self.loginStatusMessage = ("Successfully created user: \(result?.user.uid ?? "")")
+        }
+    }
+    
+    private func loginUser() {
+        FirebaseManager.shared.auth.signIn(withEmail: email, password: password) {
+            result, error in
+            if let err = error {
+                print("Failed to sign in user: ", err)
+                self.loginStatusMessage = "Failed to sign in user: \(err)"
+                return
+            }
+            
+            print("Successfully signed in user: \(result?.user.uid ?? "")")
+            self.loginStatusMessage = ("Successfully signed in user: \(result?.user.uid ?? "")")
         }
     }
 }
