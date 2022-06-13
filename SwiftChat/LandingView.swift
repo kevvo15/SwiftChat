@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct LandingView: View {
     
     @State var isLoginMode = false
     @State var email = ""
     @State var password = ""
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some View {
         NavigationView {
@@ -64,6 +69,7 @@ struct LandingView: View {
                 .ignoresSafeArea())
             .navigationTitle("Swift Chat")
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func handleAction() {
@@ -75,7 +81,7 @@ struct LandingView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentView_Previews1: PreviewProvider {
     static var previews: some View {
         LandingView()
     }
