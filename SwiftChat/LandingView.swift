@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct LandingView: View {
     
     @State var isLoginMode = false
     @State var email = ""
@@ -29,7 +29,7 @@ struct ContentView: View {
                     
                     if !isLoginMode {
                         Button {
-                            handleAction()
+                            
                         } label: {
                             Image(systemName: "person.fill")
                                 .font(.system(size:64))
@@ -46,7 +46,7 @@ struct ContentView: View {
                         .background(Color.white)
                     
                     Button {
-                        
+                        handleAction()
                     } label: {
                         HStack {
                             Spacer()
@@ -77,6 +77,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        LandingView()
     }
 }
