@@ -69,7 +69,7 @@ struct LandingView: View {
                 .ignoresSafeArea())
             .navigationTitle("Swift Chat")
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+//        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func handleAction() {
