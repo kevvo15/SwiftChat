@@ -11,6 +11,7 @@ import Firebase
 class FirebaseManager: NSObject {
     
     let auth: Auth
+    let storage: Storage
     
     static let shared = FirebaseManager()
     
@@ -18,6 +19,7 @@ class FirebaseManager: NSObject {
         FirebaseApp.configure()
         
         self.auth = Auth.auth()
+        self.storage = Storage.storage()
         
         super.init()
     }
@@ -26,9 +28,11 @@ class FirebaseManager: NSObject {
 
 struct LandingView: View {
     
-    @State var isLoginMode = false
-    @State var email = ""
-    @State var password = ""
+    @State private var isLoginMode = false
+    @State private var email = ""
+    @State private var password = ""
+    @State private var showImagePicker = false
+    @State private var image: UIImage?
     
     var body: some View {
         NavigationView {
@@ -46,11 +50,25 @@ struct LandingView: View {
                     
                     if !isLoginMode {
                         Button {
-                            
+                            showImagePicker
+                                .toggle()
                         } label: {
-                            Image(systemName: "person.fill")
-                                .font(.system(size:64))
-                                .padding()
+                            
+                            VStack {
+                                if let image = self.image {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 128, height: 128)
+                                        .cornerRadius(64)
+                                } else {
+                                    Image(systemName: "person.fill")
+                                        .font(.system(size:64))
+                                        .padding()
+                                        .foregroundColor(Color(.label))
+                                }
+                            }
+                            .overlay(RoundedRectangle(cornerRadius: 64).stroke(Color.black, lineWidth: 3))
                         }
                     }
                     
@@ -84,6 +102,8 @@ struct LandingView: View {
             .navigationTitle("Swift Chat")
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
+            ImagePicker(image: $image)        }
     }
     
     private func handleAction() {
@@ -109,6 +129,32 @@ struct LandingView: View {
             
             print("Successfully created user: \(result?.user.uid ?? "")")
             self.loginStatusMessage = ("Successfully created user: \(result?.user.uid ?? "")")
+            
+            self.persistImageToStorage()
+        }
+    }
+    
+    private func persistImageToStorage() {
+        
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid
+        else { return }
+        
+        let ref = FirebaseManager.shared.storage.reference(withPath: uid)
+        guard let imageData = self.image?.jpegData(compressionQuality: 0.5) else { return }
+        ref.putData(imageData, metadata: nil) { metadata, err in
+            if let err = err {
+                self.loginStatusMessage = "Failed to push image to Storage: \(err)"
+                return
+            }
+            
+            ref.downloadURL { url, err in
+                if let err = err {
+                    self.loginStatusMessage = "Failed to retrieve download URL: \(err)"
+                    return
+                }
+                
+                self.loginStatusMessage = "Successfully stored image with url: \(url?.absoluteString ?? "")"
+            }
         }
     }
     
@@ -125,6 +171,7 @@ struct LandingView: View {
             self.loginStatusMessage = ("Successfully signed in user: \(result?.user.uid ?? "")")
         }
     }
+    
 }
 
 struct ContentView_Previews1: PreviewProvider {
