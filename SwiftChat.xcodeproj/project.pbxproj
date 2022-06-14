@@ -16,6 +16,7 @@
 		B4DB5E22285935B200ED2B6A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B4DB5E21285935B200ED2B6A /* FirebaseAuth */; };
 		B4DB5E24285935B200ED2B6A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B4DB5E23285935B200ED2B6A /* FirebaseFirestore */; };
 		B4DB5E26285935B200ED2B6A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B4DB5E25285935B200ED2B6A /* FirebaseStorage */; };
+		B4DB5E2928594ACD00ED2B6A /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB5E2828594ACD00ED2B6A /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		B40F511A2857CDDD008F7B55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B43FA51F2857EEE10085A404 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		B4DB5DF52859296800ED2B6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B4DB5E2828594ACD00ED2B6A /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		B40F51122857CDD8008F7B55 /* SwiftChat */ = {
 			isa = PBXGroup;
 			children = (
+				B4DB5E2728594A9800ED2B6A /* Messages */,
 				B40F51132857CDD8008F7B55 /* SwiftChatApp.swift */,
 				B40F51152857CDD8008F7B55 /* LandingView.swift */,
 				B4DB5DF52859296800ED2B6A /* GoogleService-Info.plist */,
@@ -77,6 +80,14 @@
 				B40F511A2857CDDD008F7B55 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B4DB5E2728594A9800ED2B6A /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				B4DB5E2828594ACD00ED2B6A /* MessageView.swift */,
+			);
+			path = Messages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4DB5E2928594ACD00ED2B6A /* MessageView.swift in Sources */,
 				B43FA5202857EEE10085A404 /* ImagePicker.swift in Sources */,
 				B40F51162857CDD8008F7B55 /* LandingView.swift in Sources */,
 				B40F51142857CDD8008F7B55 /* SwiftChatApp.swift in Sources */,
