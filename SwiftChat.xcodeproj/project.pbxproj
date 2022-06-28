@@ -31,6 +31,7 @@
 		B43FA51F2857EEE10085A404 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		B4946FC4286B9F1D00D92DFC /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		B4946FCA286BBEF800D92DFC /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
+		B4946FCC286BC21900D92DFC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B4DB5DF52859296800ED2B6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B4DB5E2828594ACD00ED2B6A /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,6 +54,7 @@
 		B40F51072857CDD8008F7B55 = {
 			isa = PBXGroup;
 			children = (
+				B4946FCC286BC21900D92DFC /* README.md */,
 				B40F51122857CDD8008F7B55 /* SwiftChat */,
 				B40F51112857CDD8008F7B55 /* Products */,
 			);
