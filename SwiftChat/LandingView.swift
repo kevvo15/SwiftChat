@@ -10,6 +10,8 @@ import Firebase
 
 struct LandingView: View {
     
+    let completedLoginProcess: () -> ()
+    
     @State private var isLoginMode = false
     @State private var email = ""
     @State private var password = ""
@@ -101,6 +103,11 @@ struct LandingView: View {
     @State var loginStatusMessage = ""
     
     private func createNewAccount() {
+        if self.image == nil {
+            self.loginStatusMessage = "You must select a profile image."
+            return
+        }
+        
         FirebaseManager.shared.auth.createUser(withEmail: email, password: password) {
             result, error in
             if let err = error {
@@ -158,6 +165,8 @@ struct LandingView: View {
                     return
                 }
                 print("success")
+                
+                self.completedLoginProcess()
             }
     }
     
@@ -172,6 +181,8 @@ struct LandingView: View {
             
             print("Successfully signed in user: \(result?.user.uid ?? "")")
             self.loginStatusMessage = ("Successfully signed in user: \(result?.user.uid ?? "")")
+            
+            self.completedLoginProcess()
         }
     }
     
@@ -179,6 +190,8 @@ struct LandingView: View {
 
 struct ContentView_Previews1: PreviewProvider {
     static var previews: some View {
-        LandingView()
+        LandingView(completedLoginProcess: {
+            
+        })
     }
 }
