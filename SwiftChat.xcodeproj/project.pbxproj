@@ -14,6 +14,7 @@
 		B43FA5202857EEE10085A404 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43FA51F2857EEE10085A404 /* ImagePicker.swift */; };
 		B4946FC5286B9F1D00D92DFC /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4946FC4286B9F1D00D92DFC /* FirebaseManager.swift */; };
 		B4946FC8286BA8C500D92DFC /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = B4946FC7286BA8C500D92DFC /* SDWebImageSwiftUI */; };
+		B4946FCB286BBEF800D92DFC /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4946FCA286BBEF800D92DFC /* ChatUser.swift */; };
 		B4DB5DF62859296800ED2B6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4DB5DF52859296800ED2B6A /* GoogleService-Info.plist */; };
 		B4DB5E22285935B200ED2B6A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B4DB5E21285935B200ED2B6A /* FirebaseAuth */; };
 		B4DB5E24285935B200ED2B6A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B4DB5E23285935B200ED2B6A /* FirebaseFirestore */; };
@@ -29,6 +30,7 @@
 		B40F511A2857CDDD008F7B55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B43FA51F2857EEE10085A404 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		B4946FC4286B9F1D00D92DFC /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		B4946FCA286BBEF800D92DFC /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 		B4DB5DF52859296800ED2B6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B4DB5E2828594ACD00ED2B6A /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 		B40F51122857CDD8008F7B55 /* SwiftChat */ = {
 			isa = PBXGroup;
 			children = (
+				B4946FC9286BBED400D92DFC /* Model */,
 				B4946FC3286B9EF600D92DFC /* Utils */,
 				B4DB5E2728594A9800ED2B6A /* Messages */,
 				B40F51132857CDD8008F7B55 /* SwiftChatApp.swift */,
@@ -93,6 +96,14 @@
 				B4946FC4286B9F1D00D92DFC /* FirebaseManager.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B4946FC9286BBED400D92DFC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B4946FCA286BBEF800D92DFC /* ChatUser.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B4DB5E2728594A9800ED2B6A /* Messages */ = {
@@ -184,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4946FCB286BBEF800D92DFC /* ChatUser.swift in Sources */,
 				B4DB5E2928594ACD00ED2B6A /* MessageView.swift in Sources */,
 				B43FA5202857EEE10085A404 /* ImagePicker.swift in Sources */,
 				B4946FC5286B9F1D00D92DFC /* FirebaseManager.swift in Sources */,
