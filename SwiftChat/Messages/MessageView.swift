@@ -151,6 +151,7 @@ struct MessageView: View {
                             VStack(alignment: .leading) {
                                 Text("Username")
                                     .font(.system(size: 16, weight: .bold))
+                                    .foregroundColor(Color(.label))
                                 Text("Message sent to user")
                                     .font(.system(size: 14))
                                     .foregroundColor(Color(.lightGray))
@@ -159,9 +160,10 @@ struct MessageView: View {
                             
                             Text("22d")
                                 .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(Color(.label))
                         }
                     }
-
+                    
                     Divider()
                         .padding(.vertical, 8)
                 }.padding(.horizontal)
@@ -198,20 +200,6 @@ struct MessageView: View {
     }
     
     @State private var chatUser: ChatUser?
-}
-
-struct ChatLogView: View {
-    
-    let chatUser: ChatUser?
-    
-    var body: some View {
-        ScrollView {
-            ForEach(0..<10) { num in
-                Text("FAKE CHAT \(num)")
-            }
-        }.navigationTitle(chatUser?.email ?? "")
-            .navigationBarTitleDisplayMode(.inline)
-    }
 }
 
 struct MessageView_Previews: PreviewProvider {
