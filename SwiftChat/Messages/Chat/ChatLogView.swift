@@ -12,19 +12,25 @@ struct FirebaseConstants {
     static let fromId = "fromId"
     static let toId = "toId"
     static let text = "text"
+    static let timestamp = "timestamp"
+    static let messages = "messages"
+    static let recentMessages = "recent_messages"
+    static let profileImageUrl = "image_url"
+    static let username = "username"
 }
 
 struct ChatMessage: Identifiable {
     
     var id: String { documentId }
     let documentId: String
-    let fromId, toId, text: String
+    let fromId, toId, text, timestamp: String
     
     init(documentId: String, data: [String: Any]) {
         self.documentId = documentId
         self.fromId = data[FirebaseConstants.fromId] as? String ?? ""
         self.toId = data[FirebaseConstants.toId] as? String ?? ""
         self.text = data[FirebaseConstants.text] as? String ?? ""
+        self.timestamp = data[FirebaseConstants.timestamp] as? String ?? ""
     }
 }
 
@@ -47,10 +53,10 @@ class ChatLogViewModel: ObservableObject {
         guard let toId = chatUser?.uid else { return }
         
         FirebaseManager.shared.firestore
-            .collection("messages")
+            .collection(FirebaseConstants.messages)
             .document(fromId)
             .collection(toId)
-            .order(by: "timestamp")
+            .order(by: FirebaseConstants.timestamp)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
                     self.errorMessage = "Failed to listen to messages: \(error)"
@@ -78,12 +84,12 @@ class ChatLogViewModel: ObservableObject {
         guard let toId = chatUser?.uid else { return }
         
         let document =
-        FirebaseManager.shared.firestore.collection("messages")
+        FirebaseManager.shared.firestore.collection(FirebaseConstants.messages)
             .document(fromId)
             .collection(toId)
             .document()
         
-        let messageData = [FirebaseConstants.fromId:fromId, FirebaseConstants.toId:toId, FirebaseConstants.text: self.chatText, "timestamp": Timestamp()] as [String : Any]
+        let messageData = [FirebaseConstants.fromId:fromId, FirebaseConstants.toId:toId, FirebaseConstants.text: self.chatText, FirebaseConstants.timestamp: Timestamp()] as [String : Any]
         
         document.setData(messageData) { error in
             if let error = error {
@@ -91,12 +97,14 @@ class ChatLogViewModel: ObservableObject {
                 return
             }
             
+            self.persistRecentMessage()
+            
             self.chatText = ""
             self.count += 1
         }
         
         let recipientMessageDocument =
-        FirebaseManager.shared.firestore.collection("messages")
+        FirebaseManager.shared.firestore.collection(FirebaseConstants.messages)
             .document(toId)
             .collection(fromId)
             .document()
@@ -109,6 +117,43 @@ class ChatLogViewModel: ObservableObject {
         }
         
     }
+    
+    private func persistRecentMessage() {
+        guard let chatUser = chatUser else {
+            return
+        }
+
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        guard let toId = self.chatUser?.uid else { return }
+        
+        let document = FirebaseManager.shared.firestore
+            .collection(FirebaseConstants.recentMessages)
+            .document(uid)
+            .collection(FirebaseConstants.messages)
+            .document(toId)
+        
+        let email = chatUser.email
+        let index = email.firstIndex(of: "@") ?? email.endIndex
+        let username = email[..<index]
+        
+        let data = [
+            FirebaseConstants.timestamp: Timestamp(),
+            FirebaseConstants.text: self.chatText,
+            FirebaseConstants.fromId: uid,
+            FirebaseConstants.toId: toId,
+            FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
+            FirebaseConstants.username: username
+        ] as [String: Any]
+        
+        document.setData(data) { error in
+            if let error = error {
+                self.errorMessage = "Failed to save recent message: \(error)"
+                print(error)
+                return
+            }
+        }
+    }
+    
     @Published var count = 0
 }
 
