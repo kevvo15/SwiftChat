@@ -65,6 +65,10 @@ class ChatLogViewModel: ObservableObject {
                         
                     }
                 })
+                
+                DispatchQueue.main.async {
+                    self.count += 1
+                }
             }
     }
     
@@ -88,6 +92,7 @@ class ChatLogViewModel: ObservableObject {
             }
             
             self.chatText = ""
+            self.count += 1
         }
         
         let recipientMessageDocument =
@@ -104,6 +109,7 @@ class ChatLogViewModel: ObservableObject {
         }
         
     }
+    @Published var count = 0
 }
 
 struct ChatLogView: View {
@@ -124,6 +130,11 @@ struct ChatLogView: View {
         }
         .navigationTitle(chatUser?.email ?? "")
         .navigationBarTitleDisplayMode(.inline)
+        //        .navigationBarItems(trailing: Button(action: {
+        //            vm.count += 1
+        //        }, label: {
+        //            Text("Count: \(vm.count)")
+        //        }))
     }
     
     private var chatBottomBar: some View {
@@ -150,39 +161,23 @@ struct ChatLogView: View {
         .padding(.vertical, 8)
     }
     
+    static let scrollToBottomId = "Bottom"
+    
     private var messagesView: some View {
         ScrollView {
-            ForEach(vm.chatMessages) { message in
+            ScrollViewReader { scrollViewProxy in
                 VStack {
-                    if message.fromId == FirebaseManager.shared.auth.currentUser?.uid {
-                        HStack {
-                            Spacer()
-                            HStack {
-                                Text(message.text)
-                                    .foregroundColor(Color(.white))
-                            }
-                            .padding()
-                            .background(Color.blue)
-                            .cornerRadius(8)
-                        }
-                    } else {
-                        HStack {
-                            HStack {
-                                Text(message.text)
-                                    .foregroundColor(Color(.black))
-                            }
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(8)
-                            Spacer()
-                        }
+                    ForEach(vm.chatMessages) { message in
+                        ChatMessageView(message: message)
+                    }
+                    HStack { Spacer() }
+                        .id(Self.scrollToBottomId)
+                }
+                .onReceive(vm.$count) { _ in
+                    withAnimation(.easeOut(duration: 0.5)) {
+                        scrollViewProxy.scrollTo(Self.scrollToBottomId, anchor: .bottom)
                     }
                 }
-                .padding(.horizontal)
-                .padding(.top, 8)
-            }
-            HStack {
-                Spacer()
             }
         }
         .background(Color(.init(white: 0.85, alpha: 1)))
@@ -191,6 +186,41 @@ struct ChatLogView: View {
                 .background(Color(.systemBackground)
                     .ignoresSafeArea())
         }
+    }
+}
+
+struct ChatMessageView: View {
+    
+    let message: ChatMessage
+    
+    var body: some View {
+        VStack {
+            if message.fromId == FirebaseManager.shared.auth.currentUser?.uid {
+                HStack {
+                    Spacer()
+                    HStack {
+                        Text(message.text)
+                            .foregroundColor(Color(.white))
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(8)
+                }
+            } else {
+                HStack {
+                    HStack {
+                        Text(message.text)
+                            .foregroundColor(Color(.black))
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    Spacer()
+                }
+            }
+        }
+        .padding(.horizontal)
+        .padding(.top, 8)
     }
 }
 
