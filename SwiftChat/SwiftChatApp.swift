@@ -11,9 +11,10 @@ import SwiftUI
 struct SwiftChatApp: App {
     var body: some Scene {
         WindowGroup {
-            LandingView(completedLoginProcess: {
-                
-            })
+//            LandingView(completedLoginProcess: {
+//
+//            })
+            MessageView()
         }
     }
 }
