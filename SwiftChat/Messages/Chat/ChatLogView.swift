@@ -175,11 +175,6 @@ struct ChatLogView: View {
         }
         .navigationTitle(chatUser?.email ?? "")
         .navigationBarTitleDisplayMode(.inline)
-        //        .navigationBarItems(trailing: Button(action: {
-        //            vm.count += 1
-        //        }, label: {
-        //            Text("Count: \(vm.count)")
-        //        }))
     }
     
     private var chatBottomBar: some View {
@@ -188,6 +183,7 @@ struct ChatLogView: View {
                 .font(.system(size: 24))
                 .foregroundColor(Color(.darkGray))
             ZStack {
+                DescriptionPlaceholder()
                 TextEditor(text: $vm.chatText)
                     .opacity(vm.chatText.isEmpty ? 0.5 : 1)
             }.frame(height: 40)
@@ -204,6 +200,19 @@ struct ChatLogView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
+    }
+    
+    private struct DescriptionPlaceholder: View {
+        var body: some View {
+            HStack {
+                Text("What's on your mind?")
+                    .foregroundColor(Color(.gray))
+                    .font(.system(size: 17))
+                    .padding(.leading, 3)
+                    .padding(.top, -1)
+                Spacer()
+            }
+        }
     }
     
     static let scrollToBottomId = "Bottom"
