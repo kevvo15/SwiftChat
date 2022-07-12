@@ -22,6 +22,7 @@
 		B4DB5E24285935B200ED2B6A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B4DB5E23285935B200ED2B6A /* FirebaseFirestore */; };
 		B4DB5E26285935B200ED2B6A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B4DB5E25285935B200ED2B6A /* FirebaseStorage */; };
 		B4DB5E2928594ACD00ED2B6A /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DB5E2828594ACD00ED2B6A /* MessageView.swift */; };
+		B4E0D71A287CC4FE00862A8E /* FetchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0D719287CC4FE00862A8E /* FetchManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B4946FCC286BC21900D92DFC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B4DB5DF52859296800ED2B6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B4DB5E2828594ACD00ED2B6A /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		B4E0D719287CC4FE00862A8E /* FetchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				B4946FC4286B9F1D00D92DFC /* FirebaseManager.swift */,
+				B4E0D719287CC4FE00862A8E /* FetchManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				B4DB5E2928594ACD00ED2B6A /* MessageView.swift in Sources */,
 				B43FA5202857EEE10085A404 /* ImagePicker.swift in Sources */,
 				B4946FC5286B9F1D00D92DFC /* FirebaseManager.swift in Sources */,
+				B4E0D71A287CC4FE00862A8E /* FetchManager.swift in Sources */,
 				B4476C80286CC3470057A79B /* CreateNewMessageView.swift in Sources */,
 				B40F51162857CDD8008F7B55 /* LandingView.swift in Sources */,
 				B40F51142857CDD8008F7B55 /* SwiftChatApp.swift in Sources */,
